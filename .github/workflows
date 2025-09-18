@@ -31,13 +31,13 @@ jobs:
       - name: Upload artifact (fichier clair)
         uses: actions/upload-artifact@v4
         with:
-          name: TTBL_2025_26_V5.ics
-          path: TTBL_2025_26_V5.ics
+          name: TTBL_2025_26.ics
+          path: TTBL_2025_26.ics
 
       - name: Commit et push fichier mis à jour
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add TTBL_2025_26_V5.ics
+          git add TTBL_2025_26.ics
           git commit -m "Update MLTT_2025_26_V5.ics depuis workflow" || echo "Aucun changement à committer"
           git push
