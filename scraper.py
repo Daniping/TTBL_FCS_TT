@@ -1,8 +1,8 @@
 
 # ===========================================
-# MLTT_scraper_teams.py
+# TTBL_scraper_teams.py
 # - Récupère la liste (hexa, nom d'équipe)
-# - Écrit dans MLTT_2025_26_V5.ics
+# - Écrit dans TTBL_2025_26.ics
 # ===========================================
 from playwright.sync_api import sync_playwright
 
@@ -11,6 +11,8 @@ OUTPUT_FILE = "TTBL_2025_26.ics"
 def fetch_teams():
     url = "https://mltt.com/teams"
     teams = []
+    
+    url = "https://www.ttbl.de/bundesliga/gameschedule/2025-2026/20/all" = []
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
