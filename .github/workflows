@@ -40,4 +40,4 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add TTBL_2025_26.ics
           git commit -m "Update TTBL_2025_26.ics depuis workflow" || echo "Aucun changement à committer"
-          git push 
+          git push  
