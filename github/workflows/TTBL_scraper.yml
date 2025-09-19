@@ -1,4 +1,4 @@
-name: TTBL Scraper
+name: TTBL_Scraper
 
 on:
   workflow_dispatch:
