@@ -1,0 +1,47 @@
+/**
+ * Se déclenche à la création ou à la modification d'un événement.
+ * Met à jour la couleur si un mot-clé est trouvé.
+ *
+ * @param {object} e L'objet événement passé par le déclencheur de l'agenda.
+ */
+function onCalendarEventUpdate(e) {
+  // --- 1. CONFIGURATION ---
+  const keywordMappings = {
+    'Important': CalendarApp.EventColor.RED,
+    'Réunion': CalendarApp.EventColor.BLUE,
+    'Urgent': CalendarApp.EventColor.ORANGE
+  };
+
+  // --- 2. LOGIQUE DE L'EXÉCUTION ---
+  try {
+    const calendar = e.calendar;
+    const eventId = e.eventId;
+    const event = calendar.getEventById(eventId);
+    
+    // Si l'événement n'existe pas ou est un événement récurrent, on s'arrête.
+    if (!event || event.isRecurringEvent()) {
+      return;
+    }
+
+    const eventTitle = event.getTitle();
+
+    // Parcourir la liste des mots-clés pour trouver une correspondance
+    for (const keyword in keywordMappings) {
+      if (eventTitle.toLowerCase().includes(keyword.toLowerCase())) {
+        const newColor = keywordMappings[keyword];
+        
+        // Vérifier si la couleur doit vraiment être changée.
+        if (event.getColor() !== newColor) {
+          event.setColor(newColor);
+          Logger.log(`L'événement "${eventTitle}" a été mis à jour avec la couleur "${newColor}".`);
+        } else {
+          Logger.log(`L'événement "${eventTitle}" a déjà la bonne couleur. Aucune modification.`);
+        }
+        // Une fois un mot-clé trouvé, on arrête la boucle.
+        return; 
+      }
+    }
+  } catch (error) {
+    Logger.log(`Une erreur s'est produite lors de l'exécution : ${error.message}`);
+  }
+}
